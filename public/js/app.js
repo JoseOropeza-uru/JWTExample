@@ -40,16 +40,11 @@ function getValue() {
 }
 
 function logOut() {
-    // if (token!=="") {
-        xhr.get('../session/logout', {}, {})
-        .then(data => {
-            console.log(data)
-            token = ""
-        })
-        .catch(err => console.log(err));    
-    // }else{
-    //     alert('No existe una sesion');
-    // }
+    if (token!=="") {
+            token = "";
+    }else{
+        alert('No existe una sesion');
+    }
     
 }
 

@@ -1,11 +1,10 @@
 const express = require('express');
 const passport = require('passport');
 const jwt  = require('jsonwebtoken');
-const auth = require('./../middlewares/isAuth');
 let config = require('../helpers/config');
 let router = express.Router();
 
-router.get('/value', (req, res) => {
+router.get('/value',passport.authenticate('jwt', {session: false}),(req, res) => {
     res.send({
         session: req.user
     });

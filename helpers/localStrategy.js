@@ -7,8 +7,8 @@ let config = require('./config');
 module.exports.localStrategy = new localStrategy({
     usernameField: 'ced',
     passwordField: 'password'
-},function (username, password, done) {
-    User.getUserByUsername(username).then((user) => {
+},function (ced, password, done) {
+    User.getUserByUsername(ced).then((user) => {
         if (user.error) {
             return done(null, false);
         }
@@ -24,18 +24,16 @@ module.exports.localStrategy = new localStrategy({
         throw err;
     });
 });
-/*module.exports.jwtStrategy = new JWTStrategy({
+module.exports.jwtStrategy = new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
     secretOrKey   : config.secret
 },
 function (jwtPayload, cb) {
-
-    //find the user in db if needed. This functionality may be omitted if you store everything you'll need in JWT payload.
-    return UserModel.findOneById(jwtPayload.id)
+    User.getUserByUsername(jwtPayload.ced)
         .then(user => {
             return cb(null, user);
         })
         .catch(err => {
             return cb(err);
         });
-})*/
+});

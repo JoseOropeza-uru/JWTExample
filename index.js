@@ -14,7 +14,7 @@ app.use(jwt({
   secret: config.secret
 }).unless({
   path: ['/session/login', '/']
-}));;
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/', require('./controllers'));
@@ -31,6 +31,7 @@ app.use(function (err, req, res, next) {
   }
 });
 passport.use(strategies.localStrategy);
+passport.use(strategies.jwtStrategy);
 passport.serializeUser(function (user, done) {
   done(null, user);
 });
